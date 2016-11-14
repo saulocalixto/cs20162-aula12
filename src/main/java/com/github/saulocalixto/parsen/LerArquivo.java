@@ -22,22 +22,22 @@ public class LerArquivo {
 
     public void LerArquivo(String endereco) {
 
-        System.out.println("Digite o endereço do arquivo");
-
         try {
             FileReader expressao = new FileReader(endereco);
             BufferedReader lerEnd = new BufferedReader(expressao);
-            
-            String linha = lerEnd.readLine();
-            while(linha != null) {
-                System.out.println(Calcular.calcularExpressao(linha));
-                System.out.println(linha);
-                linha = lerEnd.readLine();
+            try {
+                String linha = lerEnd.readLine();
+                while (linha != null) {
+                    Calcular.calcularExpressao(linha);
+                    linha = lerEnd.readLine();
+                }
+            } catch (IllegalArgumentException e) {
+                System.err.println("Argumento inválido");
             }
-            
+
         } catch (IOException e) {
             System.err.printf("Erro na abertura do arquivo: %s.\n",
-          e.getMessage());
+                    e.getMessage());
         }
     }
 }

@@ -31,7 +31,6 @@ public class main {
 //    }
 
     LerArquivo arquivo = new LerArquivo();
-    String endereco = "/tmp/guest-swhrl9/saulo.txt";
     arquivo.LerArquivo(args[0]);
     }
 

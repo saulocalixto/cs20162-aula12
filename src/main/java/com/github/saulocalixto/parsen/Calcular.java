@@ -16,11 +16,21 @@ import java.util.List;
  */
 public class Calcular {
 
-    public static double calcularExpressao(String expressao) {
+    public static void calcularExpressao(String expressao) {
 
-        List<Token> calcula = new Lexer(expressao).tokenize();
-        Parser processador = new Parser(calcula);
-        return (processador.expressao().valor());
+        if (expressao != null) {
+            Lexer calcula = new Lexer(expressao);
+            Parser processador = new Parser(calcula.tokenize());
+            try {
+                System.out.println(processador.expressao().valor());
+            } catch (IllegalArgumentException erro) {
+                System.err.println("Expressão inválida.");
+                System.exit(1);
+            }
+        } else {
+            System.err.println("Erro, expressão nula.");
+            System.exit(1);
+        }
 
     }
 }
