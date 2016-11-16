@@ -10,6 +10,7 @@ import com.github.kyriosdata.parser.Parser;
 import com.github.kyriosdata.parser.Token;
 import java.util.List;
 
+
 /**
  *
  * @author saulocalixto
@@ -19,8 +20,8 @@ public class Calcular {
     public static void calcularExpressao(String expressao) {
 
         if (expressao != null) {
-            Lexer calcula = new Lexer(expressao);
-            Parser processador = new Parser(calcula.tokenize());
+            List<Token> calcula = new Lexer(expressao).tokenize();
+            Parser processador = new Parser(calcula);
             try {
                 System.out.println(processador.expressao().valor());
             } catch (IllegalArgumentException erro) {
