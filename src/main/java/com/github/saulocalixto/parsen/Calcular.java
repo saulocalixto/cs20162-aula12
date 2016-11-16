@@ -18,12 +18,19 @@ import java.util.List;
 public class Calcular {
 
     public static void calcularExpressao(String expressao) {
+        
+        VerificarVariavel verificar = new VerificarVariavel();
 
         if (expressao != null) {
             List<Token> calcula = new Lexer(expressao).tokenize();
             Parser processador = new Parser(calcula);
             try {
-                System.out.println(processador.expressao().valor());
+                if(verificar.haVariavel(expressao)) {
+                    System.out.println(processador.expressao()
+                            .valor(verificar.atribuirValor(expressao)));
+                } else {
+                    System.out.println(processador.expressao().valor());
+                }
             } catch (IllegalArgumentException erro) {
                 System.err.println("Expressão inválida.");
                 System.exit(1);

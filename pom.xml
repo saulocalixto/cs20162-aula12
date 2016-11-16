@@ -13,17 +13,17 @@
     -->
 
     <groupId>com.github.saulocalixto</groupId>
-    <artifactId>cs20162-aula11</artifactId>
+    <artifactId>qp</artifactId>
     <packaging>jar</packaging>
     <version>1.0.0</version>
 
-    <name>cs20162-aula12</name>
+    <name>qp</name>
 
     <description>
         Projeto de referência (exemplo) inicial de desenvolvimento em Java com uso de JUnit.
     </description>
 
-    <url>https://github.com/saulocalixto/cs20162-aula11</url>
+    <url>https://github.com/saulocalixto/cs20162-aula12</url>
 
     <organization>
         <name>Instituto de Informática (UFG) - Fábrica de Software</name>
@@ -92,6 +92,7 @@
     </dependencies>
 
     <build>
+        <finalName>${artifactId}</finalName>
         <plugins>
 
             <plugin>
