@@ -28,11 +28,11 @@ public class LerArquivo {
             try {
                 String linha = lerEnd.readLine();
                 while (linha != null) {
-                    Calcular.calcularExpressao(linha);
+                    Calcular.calcularExpressao(linha.replaceAll(" ", ""));
                     linha = lerEnd.readLine();
                 }
             } catch (IllegalArgumentException e) {
-                System.err.println("Argumento inválido");
+                System.err.println("Argumento inválido: " + e.getMessage());
             }
 
         } catch (IOException e) {
