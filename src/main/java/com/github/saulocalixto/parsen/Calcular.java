@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class Calcular {
 
-    public static void calcularExpressao(String expressao) {
+    public static double calcularExpressao(String expressao) {
         
         VerificarVariavel verificar = new VerificarVariavel();
 
@@ -26,10 +26,10 @@ public class Calcular {
             Parser processador = new Parser(calcula);
             try {
                 if(verificar.haVariavel(expressao)) {
-                    System.out.println(processador.expressao()
-                            .valor(verificar.atribuirValor(expressao)));
+                    return processador.expressao()
+                            .valor(verificar.atribuirValor(expressao));
                 } else {
-                    System.out.println(processador.expressao().valor());
+                    return processador.expressao().valor();
                 }
             } catch (IllegalArgumentException erro) {
                 System.err.println("Expressão inválida.");
@@ -39,6 +39,11 @@ public class Calcular {
             System.err.println("Erro, expressão nula.");
             System.exit(1);
         }
-
+        return -1;
     }
+    
+    public static void pegarValor() {
+        
+    }
+    
 }

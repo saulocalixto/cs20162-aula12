@@ -5,11 +5,11 @@
  */
 package com.github.saulocalixto.parsen;
 
-import static com.github.saulocalixto.parsen.Calcular.calcularExpressao;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Scanner;
 
 /**
@@ -20,7 +20,7 @@ public class LerArquivo {
 
     Scanner ler = new Scanner(System.in);
 
-    public void LerArquivo(String endereco) {
+    public void LerArquivo(String endereco) throws IOException {
 
         try {
             FileReader expressao = new FileReader(endereco);
@@ -28,7 +28,8 @@ public class LerArquivo {
             try {
                 String linha = lerEnd.readLine();
                 while (linha != null) {
-                    Calcular.calcularExpressao(linha.replaceAll(" ", ""));
+                    System.out.println(Calcular
+                            .calcularExpressao(linha.replaceAll(" ", "")));
                     linha = lerEnd.readLine();
                 }
             } catch (IllegalArgumentException e) {
@@ -36,8 +37,19 @@ public class LerArquivo {
             }
 
         } catch (IOException e) {
-            System.err.printf("Erro na abertura do arquivo: %s.\n",
-                    e.getMessage());
+            try {
+                URL oracle = new URL(endereco);
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(oracle.openStream()));
+                String linha;
+                while ((linha = in.readLine()) != null) {
+                    System.out.println(Calcular
+                            .calcularExpressao(linha.replaceAll(" ", "")));
+                }
+                in.close();
+            } catch(IOException f) {
+                System.err.println("Argumento inválido: " + f.getMessage());
+            }
         }
     }
 }
