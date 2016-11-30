@@ -15,25 +15,9 @@ public class main {
 
     public static void main(String[] args) throws IOException {
 
-//        String conta;
-//        conta = args[0];
-//
-//        if(conta != null) {
-//            try {
-//                System.out.println(Calcular.calcularExpressao(conta));
-//                System.exit(0);
-//            } catch (IllegalArgumentException erro) {
-//                System.err.println("Expressão inválida.");
-//                System.exit(1);
-//            }
-//        } else {
-//            System.err.println("Erro, expressão nula.");
-//            System.exit(1);
-//        }
-//    }
-
-    LerArquivo arquivo = new LerArquivo();
-    arquivo.LerArquivo(args[0]);
+        ToHtml.criarHTML();
+        Carrega arquivo = new Carrega();
+        Navegacao.pegarTeste(args[0]);
     }
 
 }

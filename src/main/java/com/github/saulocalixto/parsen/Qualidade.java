@@ -7,28 +7,35 @@ package com.github.saulocalixto.parsen;
 
 /**
  *
- * @author guest-ntpgmh
+ * @author Saulo A. Calixto
  */
 public class Qualidade {
-    
-    private int somaCertos = 0;
-    private int somaErrados = 0;
-    
-    public boolean verificaResultado(String expressao) {
-    
-    String[] divide = expressao.split(";");
-    String resultadoEsperado = divide[2];
-    
-    if(Double.parseDouble(resultadoEsperado) 
-            == Calcular.calcularExpressao(expressao)) {
-        somaCertos++;
-        return true;
-    } else {
-        somaErrados++;
-        return false;
+
+    private static int somaCertos = 0;
+    private static int somaErrados = 0;
+
+    public static void verificaResultado(List testes) {
+
+        String[] divide = expressao.split(";");
+        Double resultadoEsperado = Double.parseDouble(divide[2]);
+        Double resultadoObtido = Calcular.calcularExpressao(expressao);
+        
+        comparaResultadosCertos(resultadoObtido, resultadoEsperado);
+        comparaResultadosErrados(resultadoObtido, resultadoEsperado);
+
     }
-}
-   
+
+    private static int comparaResultadosCertos(double obtido, double esperado) {
+        if (obtido == esperado) {
+            somaCertos++;
+        }
+        return somaCertos;
+    }
     
-    
+        private static int comparaResultadosErrados(double obtido, double esperado) {
+        if (obtido != esperado) {
+            somaErrados++;
+        }
+        return somaErrados;
+    }
 }

@@ -42,8 +42,4 @@ public class Calcular {
         return -1;
     }
     
-    public static void pegarValor() {
-        
-    }
-    
 }
