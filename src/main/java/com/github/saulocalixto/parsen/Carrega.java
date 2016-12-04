@@ -13,7 +13,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -21,10 +20,9 @@ import java.util.List;
  */
 public class Carrega {
 
-    public static List<String> testes(BufferedReader br) {
+    public static ArrayList<String> testes(BufferedReader br) {
 
-        List<String> testes = new ArrayList<>();
-
+        ArrayList<String> testes = new ArrayList<>();
         try {
             String linha = br.readLine();
             while (linha != null) {
@@ -32,6 +30,7 @@ public class Carrega {
                 linha = br.readLine();
             }
         } catch (Exception e) {
+            System.out.println("Não deu");
             return null;
         }
 

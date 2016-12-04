@@ -11,16 +11,25 @@ import java.io.PrintWriter;
 
 /**
  *
- * @author guest-pbh5uh
+ * @author Saulo de Araújo Calixto
  */
 public class ToHtml {
 
+    static int certos = Qualidade.getsomaCertos();
+    static int errados = Qualidade.getsomaErrados();
+
     public static void criarHTML() throws IOException {
 
-        FileWriter arq = new FileWriter("./index.html");
+        FileWriter arq = new FileWriter("./qp.html");
         PrintWriter gravarArq = new PrintWriter(arq);
+        System.out.println("Criando arquivo.");
+        gravarArq.printf(corpoHtml());
 
-        gravarArq.printf("<html>\n"
+        arq.close();
+    }
+
+    private static String corpoHtml() {
+        String html = "<html>\n"
                 + "<head>\n"
                 + "<meta charset=\"UTF-8\">\n"
                 + "<title>Relatório de Testes</title>\n"
@@ -30,23 +39,23 @@ public class ToHtml {
                 + "<table>\n"
                 + "<tr>\n"
                 + "<td><b>Tempo total</b></td>\n"
-                + "<td>100ms</td>\n"
+                + "<td>" + (Qualidade.getTempoTotal()) + "ms</td>\n"
                 + "</tr>\n"
                 + "<tr>\n"
                 + "<td><b>Tempo médio</b></td>\n"
-                + "<td>4ms</td>\n"
+                + "<td>" + (Qualidade.getTempoMedio()) + "ms</td>\n"
                 + "</tr>\n"
                 + "<tr>\n"
                 + "<td><b>Total de testes</b></td>\n"
-                + "<td>25</td>\n"
+                + "<td>" + (certos + errados) + "</td>\n"
                 + "</tr>\n"
                 + "<tr>\n"
                 + "<td><b>Corretos</b></td>\n"
-                + "<td> + </td>\n"
+                + "<td>" + (certos) + "</td>\n"
                 + "</tr>\n"
                 + "<tr>\n"
                 + "<td><b>Falhas</b></td>\n"
-                + "<td>0</td>\n"
+                + "<td>" + (errados) + "</td>\n"
                 + "</tr>\n"
                 + "</table>\n"
                 + "\n"
@@ -57,22 +66,20 @@ public class ToHtml {
                 + "<th>Esperado</th>\n"
                 + "<th>Obtido</th>\n"
                 + "</tr>\n"
-                + "<tr>\n"
-                + "<td>2 + 3</td>\n"
-                + "<td>5</td>\n"
-                + "<td>5</td>\n"
-                + "</tr>\n"
-                + "<tr>\n"
-                + "<td>2 * 45</td>\n"
-                + "<td>90</td>\n"
-                + "<td>90</td>\n"
-                + "</tr>\n"
-                + "</table>\n"
+                + "<tr>\n";
+        for (int cont = 0; cont < Qualidade.getObtido().size(); cont++) {
+            html += "<td>" + (Qualidade.getExpressoes().get(cont)) + "</td>\n";
+            html += "<td>" + (Qualidade.getEsperado().get(cont)) + "</td>\n";
+            html += "<td>" + (Qualidade.getObtido().get(cont)) + "</td>\n";
+            html += "</tr>\n";
+        }
+
+        html += "</table>\n"
                 + "</body>\n"
                 + "\n"
-                + "</html>");
+                + "</html>";
         
-        arq.close();
+        return html;
     }
 
 }

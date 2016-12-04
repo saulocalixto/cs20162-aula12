@@ -20,7 +20,7 @@ public class VerificarVariavel {
 
     
 
-    public Map atribuirValor(String expressao) {
+    public static Map atribuirValor(String expressao) {
 
         Map<String, Float> ctx = new HashMap<>();
         

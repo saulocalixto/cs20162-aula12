@@ -7,7 +7,6 @@ package com.github.saulocalixto.parsen;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -15,7 +14,7 @@ import java.util.List;
  */
 public class Navegacao {
 
-    private static List<String> arraytestes = new ArrayList<>();
+    private static ArrayList<String> arraytestes = new ArrayList<>();
 
     public static void pegarTeste(String testes) throws IOException {
 
@@ -24,12 +23,9 @@ public class Navegacao {
         } else if (Carrega.isArquivo(testes)) {
             arraytestes = Carrega.testes(Carrega.getBufferedReader2(testes));
         }
-    }
-
-    public static void iterarArray() {
-
+        
         Qualidade.verificaResultado(arraytestes);
-
+        ToHtml.criarHTML();
     }
 
 }

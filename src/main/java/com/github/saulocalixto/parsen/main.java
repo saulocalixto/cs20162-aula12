@@ -14,10 +14,9 @@ import java.io.IOException;
 public class main {
 
     public static void main(String[] args) throws IOException {
-
-        ToHtml.criarHTML();
-        Carrega arquivo = new Carrega();
+        
         Navegacao.pegarTeste(args[0]);
+        
     }
 
 }
