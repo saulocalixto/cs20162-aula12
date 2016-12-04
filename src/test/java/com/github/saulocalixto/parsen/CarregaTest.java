@@ -9,8 +9,16 @@ import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ *
+ * @author saulocalixto
+ */
 public class CarregaTest {
 
+    /**
+     *
+     * @throws FileNotFoundException
+     */
     @Test
     public void testLerArquivo() throws FileNotFoundException {
         String str = "primeira\nsegunda\nterceira\n";
@@ -26,6 +34,9 @@ public class CarregaTest {
         assertEquals("terceira", testes.get(2));
     }
 
+    /**
+     *
+     */
     @Test
     public void identificaUrlCorretamente() {
         assertTrue(Carrega.isUrl("http://cnn.com"));

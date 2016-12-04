@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2016. Engenharia de Software - Instituto de Informática (UFG)
+ * Creative Commons Attribution 4.0 International License.
  */
 package com.github.saulocalixto.parsen;
 
@@ -14,34 +13,68 @@ import java.util.Map;
  */
 public class VerificarVariavel {
 
-    public boolean haVariavel(String expressao) {
+    /**
+     * Guarda as expressões sem as variáveis, só com valores.
+     */
+    private static String expressaoNoVariavel;
+
+    /**
+     * Verifica se há alguma variável na expressão.
+     *
+     * @param expressao Teste passado pelo usuário.
+     * @return True ou False, se tiver ou não variável.
+     */
+    public final boolean haVariavel(final String expressao) {
         return expressao.contains("=");
     }
 
-    
-
-    public static Map atribuirValor(String expressao) {
+    /**
+     * Método atribui valor às variáveis nas expressões.
+     *
+     * @param expressao Teste passado pelo usuário para ser resolvido pelo
+     * parser.
+     * @return Retorna um Map que presenta as variáveis e seus valores para que
+     * o parser possa resolver a expressão.
+     */
+    public static Map atribuirValor(final String expressao) {
 
         Map<String, Float> ctx = new HashMap<>();
-        
-        String[] pontovirgual;
-        
-        pontovirgual = expressao.split(";");
-        
+
+        String[] pontovirgula;
+
+        pontovirgula = expressao.split(";");
+
         String[] virgula;
-        
-        virgula = pontovirgual[1].split(",");
-        
+
+        virgula = pontovirgula[1].split(",");
+
         String[] valores;
+
         int contar;
-        for(contar = 0; contar < virgula.length; contar++) {
+        for (contar = 0; contar < virgula.length; contar++) {
             valores = virgula[contar].trim().split("=");
+            System.out.println("Valores " + valores[0] + " - " + valores[1]);
+            System.out.println("pontovirgula " + pontovirgula[0]);
+
+            for (int cont = 0; cont < pontovirgula[0].length(); cont++) {
+                expressaoNoVariavel = pontovirgula[0].replaceAll(valores[0],
+                        valores[1]);
+            }
+
             ctx.put(valores[0], Float.parseFloat(valores[1]));
             int cont = 0;
-            for(cont = 2; cont < valores.length; cont += 2) {
-                ctx.put(valores[cont], Float.parseFloat(valores[cont+1]));
+            for (cont = 2; cont < valores.length; cont += 2) {
+                ctx.put(valores[cont], Float.parseFloat(valores[cont + 1]));
             }
         }
         return ctx;
+    }
+
+    /**
+     *
+     * @return Retorna a expressão sem variáveis.
+     */
+    public static String getExpressaoNoVariavel() {
+        return expressaoNoVariavel;
     }
 }
