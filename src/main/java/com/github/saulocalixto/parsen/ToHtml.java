@@ -33,7 +33,6 @@ public class ToHtml {
 
         FileWriter arq = new FileWriter("./qp.html");
         PrintWriter gravarArq = new PrintWriter(arq);
-        System.out.println("Criando arquivo.");
         gravarArq.printf(corpoHtml());
 
         arq.close();
@@ -43,7 +42,7 @@ public class ToHtml {
      * @return String com o corpo do relatório html.
      */
 
-    private static String corpoHtml() {
+    public static String corpoHtml() {
         String html = "<html>\n"
                 + "<head>\n"
                 + "<meta charset=\"UTF-8\">\n"

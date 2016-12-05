@@ -141,7 +141,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>jars/</classpathPrefix>
-                            <mainClass>com.github.saulocalixto.parsen.main</mainClass>
+                            <mainClass>com.github.saulocalixto.parsen.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -75,7 +75,7 @@ public class Carrega {
      */
     public static boolean isArquivo(final String arquivo) {
         try {
-            new FileReader(arquivo);
+            System.out.println(new FileReader(arquivo));
             return true;
         } catch (Exception e) {
             return false;
