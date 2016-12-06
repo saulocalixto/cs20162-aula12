@@ -52,21 +52,15 @@ public class VerificarVariavel {
 
         int contar;
         for (contar = 0; contar < virgula.length; contar++) {
+            virgula[contar] = virgula[contar].replaceAll(" ", "");
             valores = virgula[contar].trim().split("=");
-            System.out.println("Valores " + valores[0] + " - " + valores[1]);
-            System.out.println("pontovirgula " + pontovirgula[0]);
 
-            for (int cont = 0; cont < pontovirgula[0].length(); cont++) {
-                expressaoNoVariavel = pontovirgula[0].replaceAll(valores[0],
+            pontovirgula[0] = pontovirgula[0].replaceAll(valores[0],
                         valores[1]);
-            }
 
             ctx.put(valores[0], Float.parseFloat(valores[1]));
-            int cont = 0;
-            for (cont = 2; cont < valores.length; cont += 2) {
-                ctx.put(valores[cont], Float.parseFloat(valores[cont + 1]));
-            }
         }
+        expressaoNoVariavel = pontovirgula[0];
         return ctx;
     }
 

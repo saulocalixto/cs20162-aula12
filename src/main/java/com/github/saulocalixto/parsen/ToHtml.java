@@ -4,9 +4,14 @@
  */
 package com.github.saulocalixto.parsen;
 
+import com.google.common.annotations.VisibleForTesting;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -27,77 +32,94 @@ public class ToHtml {
     /**
      * Método cria um relatório com os resultados dos testes em um arquivo HTML.
      *
+     * @param nomeArquivo
+     * @param html
      * @throws IOException Caso ocorra algum erro na criação do arquivo.
      */
-    public static void criarHTML() throws IOException {
+    public void write(String nomeArquivo, List<String> html) {
+        try {
+            Writer out = new FileWriter(new File(nomeArquivo).
+                    getAbsoluteFile());
+            write(out, html);
+        } catch (IOException e) {
+        }
+    }
 
-        FileWriter arq = new FileWriter("./qp.html");
-        PrintWriter gravarArq = new PrintWriter(arq);
-        gravarArq.printf(corpoHtml());
-
-        arq.close();
+    @VisibleForTesting
+    void write(Writer writer, List<String> html) {
+        PrintWriter out = new PrintWriter(writer);
+        try {
+            for (int i = 0; i < html.size(); i++) {
+                out.println(html.get(i));
+            }
+        } finally {
+            out.close();
+        }
     }
 
     /**
      * @return String com o corpo do relatório html.
      */
+    public static List corpoHtml() {
 
-    public static String corpoHtml() {
-        String html = "<html>\n"
-                + "<head>\n"
-                + "<meta charset=\"UTF-8\">\n"
-                + "<title>Relatório de Testes</title>\n"
-                + "</head>\n"
-                + "<body>\n"
-                + "<h1>Resultado geral</h1>\n"
-                + "<table>\n"
-                + "<tr>\n"
-                + "<td><b>Tempo total</b></td>\n"
-                + "<td>" + (Qualidade.getTempoTotal()) + " ms</td>\n"
-                + "</tr>\n"
-                + "<tr>\n"
-                + "<td><b>Tempo médio</b></td>\n"
-                + "<td>" + (Qualidade.getTempoMedio()) + " ms</td>\n"
-                + "</tr>\n"
-                + "<tr>\n"
-                + "<td><b>Memoria Consumida</b></td>\n"
-                + "<td>" + (Qualidade.getMemoriaConsumida()) + " bytes</td>\n"
-                + "</tr>\n"
-                + "<tr>\n"
-                + "<td><b>Total de testes</b></td>\n"
-                + "<td>" + (CERTOS + ERRADOS) + "</td>\n"
-                + "</tr>\n"
-                + "<tr>\n"
-                + "<td><b>Corretos</b></td>\n"
-                + "<td>" + (CERTOS) + "</td>\n"
-                + "</tr>\n"
-                + "<tr>\n"
-                + "<td><b>Falhas</b></td>\n"
-                + "<td>" + (ERRADOS) + "</td>\n"
-                + "</tr>\n"
-                + "</table>\n"
-                + "\n"
-                + "<h1>Relatório detalhado dos testes</h1>\n"
-                + "<table>\n"
-                + "<tr>\n"
-                + "<th>Expressão</th>\n"
-                + "<th>Esperado</th>\n"
-                + "<th>Obtido</th>\n"
-                + "</tr>\n"
-                + "<tr>\n";
+        List<String> html = new ArrayList<>();
+        html.add("<html>\n");
+        html.add("<head>\n");
+        html.add("<meta charset=\"UTF-8\">\n");
+        html.add("<title>Relatório de Testes</title>\n");
+        html.add("</head>\n");
+        html.add("<body>\n");
+        html.add("<h1>Resultado geral</h1>\n");
+        html.add("<table>\n");
+        html.add("<tr>\n");
+        html.add("<td><b>Tempo total</b></td>\n");
+        html.add("<td>" + (Qualidade.getTempoTotal()) + " ms</td>\n");
+        html.add("</tr>\n");
+        html.add("<tr>\n");
+        html.add("<td><b>Tempo médio</b></td>\n");
+        html.add("<td>" + (Qualidade.getTempoMedio()) + " ms</td>\n");
+        html.add("</tr>\n");
+        html.add("<tr>\n");
+        html.add("<td><b>Memoria Consumida</b></td>\n");
+        html.add("<td>" + (Qualidade.getMemoriaConsumida())
+                + " bytes</td>\n");
+        html.add("</tr>\n");
+        html.add("<tr>\n");
+        html.add("<td><b>Total de testes</b></td>\n");
+        html.add("<td>" + (CERTOS + ERRADOS) + "</td>\n");
+        html.add("</tr>\n");
+        html.add("<tr>\n");
+        html.add("<td><b>Corretos</b></td>\n");
+        html.add("<td>" + (CERTOS) + "</td>\n");
+        html.add("</tr>\n");
+        html.add("<tr>\n");
+        html.add("<td><b>Falhas</b></td>\n");
+        html.add("<td>" + (ERRADOS) + "</td>\n");
+        html.add("</tr>\n");
+        html.add("</table>\n");
+        html.add("\n");
+        html.add("<h1>Relatório detalhado dos testes</h1>\n");
+        html.add("<table>\n");
+        html.add("<tr>\n");
+        html.add("<th>Expressão</th>\n");
+        html.add("<th>Esperado</th>\n");
+        html.add("<th>Obtido</th>\n");
+        html.add("</tr>\n");
+        html.add("<tr>\n");
         for (int cont = 0; cont < Qualidade.getObtido().size(); cont++) {
-            html += "<td>" + (Qualidade.getExpressoes().get(cont)) + "</td>\n";
-            html += "<td>" + String.format("%1$.3f", (Qualidade.getEsperado().
-                    get(cont))) + "</td>\n";
-            html += "<td>" + String.format("%1$.3f", (Qualidade.getObtido().
-                    get(cont))) + "</td>\n";
-            html += "</tr>\n";
+            html.add("<td>" + (Qualidade.getExpressoes().
+                    get(cont)) + "</td>\n");
+            html.add("<td>" + String.format("%1$.3f", (Qualidade.getEsperado().
+                    get(cont))) + "</td>\n");
+            html.add("<td>" + String.format("%1$.3f", (Qualidade.getObtido().
+                    get(cont))) + "</td>\n");
+            html.add("</tr>\n");
         }
 
-        html += "</table>\n"
-                + "</body>\n"
-                + "\n"
-                + "</html>";
+        html.add("</table>\n");
+        html.add("</body>\n");
+        html.add("\n");
+        html.add("</html>");
 
         return html;
     }

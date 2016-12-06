@@ -6,6 +6,7 @@ package com.github.saulocalixto.parsen;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -32,11 +33,9 @@ public class Tojson {
      * @throws IOException Excessão caso ocorra algum erro na criação do json.
      */
     @SuppressWarnings("unchecked")
-    public static void criarJson() throws IOException {
+    public static void criarJson(Writer writeFile) throws IOException {
 
         JSONObject jsonObject = new JSONObject();
-
-        FileWriter writeFile = null;
 
         jsonObject.put("tempoTotal", Qualidade.getTempoTotal());
         jsonObject.put("tempoMedio", Qualidade.getTempoMedio());
@@ -59,14 +58,24 @@ public class Tojson {
                             get(cont))));
             resultadosArray.add(resultados);
         }
+        jsonObject.put("Resultados", resultadosArray);
 
         try {
-            writeFile = new FileWriter("./qp.json");
             writeFile.write(jsonObject.toJSONString());
-            writeFile.write(resultadosArray.toJSONString());
             writeFile.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Main.erro("Não foi possível criar o arquivo json" + e.getMessage());
         }
+    }
+
+    public static void Writer(String nomeArquivo) throws IOException {
+        try {
+            Writer writeFile = null;
+            writeFile = new FileWriter(nomeArquivo);
+            criarJson(writeFile);
+        } catch (IOException e) {
+            Main.erro("Não foi possível ler o arquivo json" + e.getMessage());
+        }
+
     }
 }

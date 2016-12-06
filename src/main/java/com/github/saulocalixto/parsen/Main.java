@@ -5,6 +5,7 @@
 package com.github.saulocalixto.parsen;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,19 +26,40 @@ public class Main {
      */
     public static void main(final String[] args) throws IOException {
 
-        Navegacao.pegarTeste(args[0]);
+        ArrayList<String> arraytestes = new ArrayList<>();
+
+        try {
+            if (Carrega.isUrl(args[0])) {
+                arraytestes = Carrega.testes(Carrega.getBufferedReader(args[0]));
+            } else if (Carrega.isArquivo(args[0])) {
+                arraytestes = Carrega.testes(Carrega.
+                        getBufferedReader2(args[0]));
+            }
+            Qualidade.verificaResultado(arraytestes);
+        } catch (IOException e) {
+            erro("Arquivo não encontrado.\n" + e.getMessage());
+        }
 
         if (args.length == 2) {
             if (args[1].equals("-h")) {
-                ToHtml.criarHTML();
+                ToHtml h = new ToHtml();
+                h.write("./qp.html", ToHtml.corpoHtml());
                 System.out.println("Arquivo html criado no diretório corrente");
             } else {
-                System.out.println("Argumento inválido");
+                erro("Arquivo não encontrado.\n");
             }
         } else if (args.length == 1) {
-            Tojson.criarJson();
+            Tojson.Writer("./qp.json");
             System.out.println("Arquivo json criado no diretório corrente");
+        } else {
+            erro("Arquivo não encontrado.\n");
         }
+        System.exit(0);
+    }
+
+    public static void erro(final String err) {
+        System.out.println(err);
+        System.exit(1);
     }
 
 }

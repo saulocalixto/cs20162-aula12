@@ -25,6 +25,8 @@ public class Calcular {
      * @return retorna o resultado da expressão passada como argumento.
      */
     public static double calcularExpressao(String expressao) {
+        
+        double resultado = 0;
 
         VerificarVariavel verificar = new VerificarVariavel();
 
@@ -33,20 +35,18 @@ public class Calcular {
             Parser processador = new Parser(calcula);
             try {
                 if(verificar.haVariavel(expressao)) {
-                    return processador.expressao()
+                    resultado = processador.expressao()
                             .valor(VerificarVariavel.atribuirValor(expressao));
                 } else {
-                    return processador.expressao().valor();
+                    resultado = processador.expressao().valor();
                 }
             } catch (IllegalArgumentException erro) {
-                System.err.println("Expressão inválida.\n" + erro.getMessage());
-                System.exit(1);
+                throw new IllegalArgumentException();
             }
         } else {
-            System.err.println("Erro, expressão nula.");
-            System.exit(1);
+            throw new IllegalArgumentException();
         }
-        return -1;
+        return resultado;
     }
 
 }
