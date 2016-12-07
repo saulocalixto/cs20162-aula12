@@ -6,6 +6,7 @@ package com.github.saulocalixto.parsen;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -15,6 +16,12 @@ public class Main {
 
     /**
      *
+     * Método captura um argumento passado pelo usuário, endereço do arquivo
+     * + tag (se tiver), a tag indicaria o tipo de relatório retornado, podendo
+     * ser json, sem tag, ou html, -h. O arquivo passado pelo usuário pode estar
+     * em URL ou no próprio computador, ele contém testes que serão usados no
+     * parsen.
+     * 
      * @param args Argumento passado pelo usuário, contém o endereço do arquivo
      * que será testado, pode estar no próprio computador ou na internet. Há
      * também a possibilidade de passar um segundo parâmetro -h, que representa
@@ -26,7 +33,7 @@ public class Main {
      */
     public static void main(final String[] args) throws IOException {
 
-        ArrayList<String> arraytestes = new ArrayList<>();
+        List<String> arraytestes = new ArrayList<>();
 
         try {
             if (Carrega.isUrl(args[0])) {

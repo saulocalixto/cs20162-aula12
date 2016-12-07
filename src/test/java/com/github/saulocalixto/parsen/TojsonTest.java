@@ -5,7 +5,10 @@
  */
 package com.github.saulocalixto.parsen;
 
-
+import static com.github.saulocalixto.parsen.Tojson.criarJson;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import junit.framework.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -24,5 +27,20 @@ public class TojsonTest {
     public void chamarConstrutor() {
         Tojson json = new Tojson();
         Assert.assertNotNull(json);
+    }
+
+    @Test()
+    public void ErroLeitura() throws IOException {
+        Tojson.writer("c:/saulo.txt");
+    }
+
+    @Test(expected = IOException.class)
+    public void ErroLeitura2() throws IOException {
+
+        Writer writeFile = null;
+        writeFile = new FileWriter("c:/saulo.txt");
+        criarJson(writeFile);
+
+        Tojson.criarJson(writeFile);
     }
 }

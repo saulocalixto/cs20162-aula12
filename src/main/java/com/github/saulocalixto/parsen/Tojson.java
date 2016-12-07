@@ -77,7 +77,7 @@ public class Tojson {
             writeFile.write(jsonObject.toJSONString());
             writeFile.close();
         } catch (IOException e) {
-            Main.erro("Não foi possível criar o arquivo json" + e.getMessage());
+            return;
         }
     }
 
@@ -93,7 +93,7 @@ public class Tojson {
             writeFile = new FileWriter(nomeArquivo);
             criarJson(writeFile);
         } catch (IOException e) {
-            Main.erro("Não foi possível ler o arquivo json" + e.getMessage());
+            return;
         }
     }
 }

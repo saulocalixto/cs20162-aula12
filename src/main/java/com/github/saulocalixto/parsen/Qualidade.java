@@ -5,6 +5,7 @@
 package com.github.saulocalixto.parsen;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -37,17 +38,17 @@ public class Qualidade {
     /**
      * Array com os resultados esperados nos testes passados pelo usuários.
      */
-    private static final ArrayList<Double> ESPERADO = new ArrayList<>();
+    private static final List<Double> ESPERADO = new ArrayList<>();
 
     /**
      * Array com os resultados obtidos nos testes passados pelo usuários.
      */
-    private static final ArrayList<Double> OBTIDO = new ArrayList<>();
+    private static final List<Double> OBTIDO = new ArrayList<>();
 
     /**
      * Array com as expressões de teste.
      */
-    private static final ArrayList<String> EXPRESSOES = new ArrayList<>();
+    private static final List<String> EXPRESSOES = new ArrayList<>();
 
     /**
      * Total de memória consumida pelo parse para resolver os testes.
@@ -68,7 +69,7 @@ public class Qualidade {
      * @param testes ArrayList com os testes a serem realizados para testar o
      * parser.
      */
-    public static void verificaResultado(final ArrayList<String> testes) {
+    public static void verificaResultado(final List<String> testes) {
 
         testes.stream().map((expressao) -> {
             String[] divide = expressao.split(";");
@@ -189,7 +190,7 @@ public class Qualidade {
      * @return Retorna ArrayList com os resultados esperados pelo usuário em
      * seus testes passados.
      */
-    public static ArrayList<Double> getEsperado() {
+    public static List<Double> getEsperado() {
         return ESPERADO;
     }
 
@@ -197,7 +198,7 @@ public class Qualidade {
      * @return Retorna o resultado dado pelo parser nos testes passados pelo
      * usuário.
      */
-    public static ArrayList<Double> getObtido() {
+    public static List<Double> getObtido() {
         return OBTIDO;
     }
 
@@ -205,7 +206,7 @@ public class Qualidade {
      * @return ArrayList de expressões sem variáveis para fim de representação
      * no relatório.
      */
-    public static ArrayList<String> getExpressao() {
+    public static List<String> getExpressao() {
         return EXPRESSOES;
     }
 
