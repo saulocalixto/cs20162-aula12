@@ -24,8 +24,8 @@ public class Carrega {
      * Método para carregar o arquivo que contém os testes que o usuário deseja
      * realizar.
      *
-     * @param br Arquivo BufferedReader usado para encontrar o arquivo de
-     * testes no pc do usuário, ou na internet.
+     * @param br Arquivo BufferedReader usado para encontrar o arquivo de testes
+     * no pc do usuário, ou na internet.
      *
      * @return Retorna um ArrayLists com todas as expressões que devem ser sub-
      * metidas a testes.
@@ -64,10 +64,10 @@ public class Carrega {
         }
     }
 
-     /**
+    /**
      *
-     * Método verifica se o endereço passado pelo usuário é um endereço de
-     * algum diretório do computador do usuário.
+     * Método verifica se o endereço passado pelo usuário é um endereço de algum
+     * diretório do computador do usuário.
      *
      * @param arquivo Caminho em que se encontra o arquivo para testes, pode
      * estar na internet, url, ou no próprio computador.
@@ -75,7 +75,6 @@ public class Carrega {
      */
     public static boolean isArquivo(final String arquivo) {
         try {
-            System.out.println(new FileReader(arquivo));
             return true;
         } catch (Exception e) {
             return false;
@@ -85,8 +84,8 @@ public class Carrega {
     /**
      *
      * @param arquivo Caminho onde se encontra o arquivo a ser testado.
-     * @return Arquivo BufferedReader usado para encontrar o arquivo de
-     * testes no pc do usuário, ou na internet.
+     * @return Arquivo BufferedReader usado para encontrar o arquivo de testes
+     * no pc do usuário, ou na internet.
      * @throws FileNotFoundException Se o arquivo não for encontrado.
      */
     public static BufferedReader getBufferedReader2(final String arquivo)
@@ -99,8 +98,8 @@ public class Carrega {
     /**
      *
      * @param urlString Caminho onde se encontra o arquivo a ser testado.
-     * @return Arquivo BufferedReader usado para encontrar o arquivo de
-     * testes no pc do usuário, ou na internet.
+     * @return Arquivo BufferedReader usado para encontrar o arquivo de testes
+     * no pc do usuário, ou na internet.
      * @throws MalformedURLException Se não for um endereço url válido.
      * @throws IOException Se houver algum erro no endereço passado.
      */

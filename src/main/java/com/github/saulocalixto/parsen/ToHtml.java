@@ -30,23 +30,31 @@ public class ToHtml {
     private static final int ERRADOS = Qualidade.getsomaErrados();
 
     /**
-     * Método cria um relatório com os resultados dos testes em um arquivo HTML.
+     * Método um Writer que representa o arquivo que será criado.
      *
-     * @param nomeArquivo
-     * @param html
+     * @param nomeArquivo Endereço onde o arquivo será salvo e seu nome.
+     * @param html List que contém o conteúdo html.
      * @throws IOException Caso ocorra algum erro na criação do arquivo.
      */
-    public void write(String nomeArquivo, List<String> html) {
+    public final void write(final String nomeArquivo, final List<String> html)
+            throws IOException {
         try {
             Writer out = new FileWriter(new File(nomeArquivo).
                     getAbsoluteFile());
             write(out, html);
         } catch (IOException e) {
+            throw new IOException();
         }
     }
 
+    /**
+     * Método cria um relatório com os resultados dos testes em um arquivo HTML.
+     *
+     * @param writer Um Writer que representa o arquivo que será criado.
+     * @param html List que contém o conteúdo html.
+     */
     @VisibleForTesting
-    void write(Writer writer, List<String> html) {
+    final void write(final Writer writer, final List<String> html) {
         PrintWriter out = new PrintWriter(writer);
         try {
             for (int i = 0; i < html.size(); i++) {
@@ -58,7 +66,7 @@ public class ToHtml {
     }
 
     /**
-     * @return String com o corpo do relatório html.
+     * @return List com o corpo do relatório html.
      */
     public static List corpoHtml() {
 
@@ -107,7 +115,7 @@ public class ToHtml {
         html.add("</tr>\n");
         html.add("<tr>\n");
         for (int cont = 0; cont < Qualidade.getObtido().size(); cont++) {
-            html.add("<td>" + (Qualidade.getExpressoes().
+            html.add("<td>" + (Qualidade.getExpressao().
                     get(cont)) + "</td>\n");
             html.add("<td>" + String.format("%1$.3f", (Qualidade.getEsperado().
                     get(cont))) + "</td>\n");
@@ -117,6 +125,19 @@ public class ToHtml {
         }
 
         html.add("</table>\n");
+        if (Calcular.getTesteErro().size() > 0) {
+            html.add("<h1>Expressões mal formadas</h1>\n");
+            html.add("<table>\n");
+            html.add("<tr>\n");
+            html.add("<th>Expressão</th>\n");
+            html.add("</tr>\n");
+            html.add("<tr>\n");
+            for (int cont = 0; cont < Calcular.getTesteErro().size(); cont++) {
+                html.add("<td>" + (Calcular.getTesteErro().
+                        get(cont)) + "</td>\n");
+            }
+            html.add("</table>\n");
+        }
         html.add("</body>\n");
         html.add("\n");
         html.add("</html>");

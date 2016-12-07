@@ -56,7 +56,7 @@ public class VerificarVariavel {
             valores = virgula[contar].trim().split("=");
 
             pontovirgula[0] = pontovirgula[0].replaceAll(valores[0],
-                        valores[1]);
+                    valores[1]);
 
             ctx.put(valores[0], Float.parseFloat(valores[1]));
         }
@@ -65,7 +65,6 @@ public class VerificarVariavel {
     }
 
     /**
-     *
      * @return Retorna a expressão sem variáveis.
      */
     public static String getExpressaoNoVariavel() {

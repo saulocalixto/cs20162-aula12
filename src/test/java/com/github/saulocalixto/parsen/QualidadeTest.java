@@ -6,7 +6,6 @@
 package com.github.saulocalixto.parsen;
 
 
-import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -19,13 +18,7 @@ public class QualidadeTest {
     @Test
     public void chamarConstrutor() {
         Qualidade quali = new Qualidade();
-    }
-    
-    @Test
-    public void testarQualidade() {
-        ArrayList<String> testes = new ArrayList<>();
-        Qualidade.verificaResultado(testes);
-        Assert.assertEquals(0, Qualidade.getTempoMedio());
+        Assert.assertNotNull(quali);
     }
 
     

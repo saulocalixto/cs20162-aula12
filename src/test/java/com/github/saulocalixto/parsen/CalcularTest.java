@@ -53,6 +53,7 @@ public class CalcularTest {
      @Test
      public void chamarConstrutor() {
          Calcular calcula = new Calcular();
+         Assert.assertNotNull(calcula);
      }
 
 }

@@ -27,13 +27,14 @@ public class Tojson {
     private static final int ERRADOS = Qualidade.getsomaErrados();
 
     /**
-     * Método gera relatório com o resultado dos testes passados em um arquivo
-     * json.
+     * Método gera relatório em um arquivo json com o resultado dos testes
+     * passados.
      *
+     * @param writeFile writer que contém o arquivo que será criado.
      * @throws IOException Excessão caso ocorra algum erro na criação do json.
      */
     @SuppressWarnings("unchecked")
-    public static void criarJson(Writer writeFile) throws IOException {
+    public static void criarJson(final Writer writeFile) throws IOException {
 
         JSONObject jsonObject = new JSONObject();
 
@@ -60,6 +61,18 @@ public class Tojson {
         }
         jsonObject.put("Resultados", resultadosArray);
 
+        if (Calcular.getTesteErro().size() > 0) {
+            JSONObject err = new JSONObject();
+            JSONArray erros = new JSONArray();
+            for (int cont = 0; cont < Calcular.getTesteErro().size();
+                    cont++) {
+                err.put("expressãoMalFormada",
+                        Calcular.getTesteErro().get(cont));
+                erros.add(err);
+            }
+            jsonObject.put("Erro de Sintaxe", erros);
+        }
+
         try {
             writeFile.write(jsonObject.toJSONString());
             writeFile.close();
@@ -68,7 +81,13 @@ public class Tojson {
         }
     }
 
-    public static void Writer(String nomeArquivo) throws IOException {
+    /**
+     * Método um writer que representa o arquivo que será criado.
+     *
+     * @param nomeArquivo Nome e endereço do aquivo que será criado.
+     * @throws IOException Excessão caso ocorra algum erro na criação do json.
+     */
+    public static void writer(final String nomeArquivo) throws IOException {
         try {
             Writer writeFile = null;
             writeFile = new FileWriter(nomeArquivo);
@@ -76,6 +95,5 @@ public class Tojson {
         } catch (IOException e) {
             Main.erro("Não foi possível ler o arquivo json" + e.getMessage());
         }
-
     }
 }

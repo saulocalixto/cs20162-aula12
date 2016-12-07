@@ -30,7 +30,8 @@ public class Main {
 
         try {
             if (Carrega.isUrl(args[0])) {
-                arraytestes = Carrega.testes(Carrega.getBufferedReader(args[0]));
+                arraytestes = Carrega.testes(Carrega.
+                        getBufferedReader(args[0]));
             } else if (Carrega.isArquivo(args[0])) {
                 arraytestes = Carrega.testes(Carrega.
                         getBufferedReader2(args[0]));
@@ -49,7 +50,7 @@ public class Main {
                 erro("Arquivo não encontrado.\n");
             }
         } else if (args.length == 1) {
-            Tojson.Writer("./qp.json");
+            Tojson.writer("./qp.json");
             System.out.println("Arquivo json criado no diretório corrente");
         } else {
             erro("Arquivo não encontrado.\n");
@@ -57,6 +58,11 @@ public class Main {
         System.exit(0);
     }
 
+    /**
+     * Retorna saída do programa com Syste.exit(1) para representar erro de
+     * execução.
+     * @param err Mensagem de erro que será exibida para o usuário.
+     */
     public static void erro(final String err) {
         System.out.println(err);
         System.exit(1);

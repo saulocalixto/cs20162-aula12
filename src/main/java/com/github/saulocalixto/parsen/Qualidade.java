@@ -19,12 +19,12 @@ public class Qualidade {
     private static int somaCertos = 0;
 
     /**
-     * Guarda o resultado parcial dos testes que noã estão de acordo com o que o
+     * Guarda o resultado parcial dos testes que não estão de acordo com o que o
      * usuário espera.
      */
     private static int somaErrados = 0;
 
-     /**
+    /**
      * Tempo total que o parse demorou para realizar os testes do usuário.
      */
     private static long tempoTotal = 0;
@@ -57,24 +57,29 @@ public class Qualidade {
     /**
      * Constante usada pra converte de nanosegundo para milisegundo.
      */
-    private static final long CONVERTE = 1000000000;
+    private static final long CONVERTE = 1000000;
 
     /**
+     * Método que irá verificar se os testes passados estão sendo executados
+     * como esperado pelo parser. Ele pega um ArrayList com os testes e chama o
+     * parser para resolvê-los, logo em seguida o método gera os dados para
+     * preencher o relatório que será retornado ao usuário.
      *
      * @param testes ArrayList com os testes a serem realizados para testar o
      * parser.
      */
     public static void verificaResultado(final ArrayList<String> testes) {
 
-        long startTime = System.nanoTime();
-
         testes.stream().map((expressao) -> {
             String[] divide = expressao.split(";");
             Double resultadoEsperado = Double.parseDouble(divide[2]);
-
+            Double resultadoObtido = 0.0;
             long memoriaInicio = usoMemoria();
-
-            Double resultadoObtido = Calcular.calcularExpressao(expressao);
+            try {
+                resultadoObtido = Calcular.calcularExpressao(expressao);
+            } catch (IllegalArgumentException e) {
+                resultadoObtido = -1.0;
+            }
 
             long memoriaFinal = usoMemoria();
             memoriaConsumida = memoriaFinal - memoriaInicio;
@@ -84,16 +89,22 @@ public class Qualidade {
             if (divide[1].length() > 1) {
                 expressaoVariavel = VerificarVariavel.getExpressaoNoVariavel();
             } else {
+                for (int i = 0; i < divide[0].length(); i++) {
+                    if (divide[0].charAt(i) > '@') {
+                        divide[0] = divide[0].
+                                replace(divide[0].charAt(i), '0');
+                    }
+                }
                 expressaoVariavel = divide[0];
             }
             ESPERADO.add(resultadoEsperado);
             OBTIDO.add(resultadoObtido);
             return expressao;
-        }).forEachOrdered((_item) -> {
+        }).forEachOrdered((String _item) -> {
             EXPRESSOES.add(expressaoVariavel);
         });
 
-        tempoTotal = (System.nanoTime() - startTime) / CONVERTE;
+        tempoTotal = Calcular.tempoTotal() / CONVERTE;
     }
 
     /**
@@ -105,15 +116,6 @@ public class Qualidade {
     }
 
     /**
-     *
-     * @return Testes com valores atribuidos a variáveis.
-     */
-    public static ArrayList<String> getExpressoes() {
-        return EXPRESSOES;
-    }
-
-    /**
-     *
      * Verifica se os resultados esperados pelo usuário e os obtidos pelo parser
      * estão de acordo.
      *
@@ -133,7 +135,6 @@ public class Qualidade {
     }
 
     /**
-     *
      * Verifica se os resultados esperados pelo usuário e os obtidos pelo parser
      * estão de acordo ou não.
      *
@@ -153,7 +154,6 @@ public class Qualidade {
     }
 
     /**
-     *
      * @return Retorna a soma de resultados certos de acordo com o teste passado
      * pelo usuário.
      */
@@ -162,7 +162,6 @@ public class Qualidade {
     }
 
     /**
-     *
      * @return Retorna a soma de resultados errados de acordo com o teste pas-
      * sado pelo usuário.
      */
@@ -171,7 +170,6 @@ public class Qualidade {
     }
 
     /**
-     *
      * @return Retorna o tempo total que o parser demorou para resolver as ex-
      * pressões.
      */
@@ -180,20 +178,14 @@ public class Qualidade {
     }
 
     /**
-     *
      * @return Retorna o médio total que o parser demorou para resolver as ex-
      * pressões.
      */
     public static long getTempoMedio() {
-        if ((somaErrados + somaCertos) > 0) {
-            return (tempoTotal) / (somaErrados + somaCertos);
-        } else {
-            return 0;
-        }
+        return (tempoTotal) / getExpressao().size();
     }
 
     /**
-     *
      * @return Retorna ArrayList com os resultados esperados pelo usuário em
      * seus testes passados.
      */
@@ -202,7 +194,6 @@ public class Qualidade {
     }
 
     /**
-     *
      * @return Retorna o resultado dado pelo parser nos testes passados pelo
      * usuário.
      */
@@ -211,7 +202,6 @@ public class Qualidade {
     }
 
     /**
-     *
      * @return ArrayList de expressões sem variáveis para fim de representação
      * no relatório.
      */
@@ -220,7 +210,6 @@ public class Qualidade {
     }
 
     /**
-     *
      * @return Retorna total de memória usada pelo parser para realizar os
      * testes.
      */
