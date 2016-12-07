@@ -6,9 +6,12 @@
 package com.github.saulocalixto.parsen;
 
 import static com.github.saulocalixto.parsen.Tojson.criarJson;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URISyntaxException;
 import junit.framework.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,13 +37,13 @@ public class TojsonTest {
         Tojson.writer("c:/saulo.txt");
     }
 
-    @Test(expected = IOException.class)
-    public void ErroLeitura2() throws IOException {
-
+    @Test(expected = Exception.class)
+    public void ErroLeitura2() throws FileNotFoundException, IOException {
+        
         Writer writeFile = null;
-        writeFile = new FileWriter("c:/saulo.txt");
+        writeFile = new FileWriter("asdf");
         criarJson(writeFile);
 
         Tojson.criarJson(writeFile);
     }
-}
+    }

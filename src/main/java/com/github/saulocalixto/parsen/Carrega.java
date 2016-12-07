@@ -40,7 +40,7 @@ public class Carrega {
                 linha = br.readLine();
             }
         } catch (Exception e) {
-            Main.erro("Não foi possível ler arquivo");
+            return null;
         }
 
         return testes;

@@ -143,7 +143,7 @@ public class MainTest {
     @Test
     public void ExprMalFormada() throws Exception {
         List<String> testes = new ArrayList<>();
-        testes.add("a + b; a=1, b=2; 3");
+        testes.add("///5/a + b; a=1, b=2; 3");
         testes.add("//3.14 * (z + 1);;3.14");
         String caminho = new File(Main.class.getProtectionDomain()
                 .getCodeSource().getLocation().toURI().getPath())

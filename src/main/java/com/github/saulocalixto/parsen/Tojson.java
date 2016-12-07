@@ -4,6 +4,7 @@
  */
 package com.github.saulocalixto.parsen;
 
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -76,7 +77,7 @@ public class Tojson {
         try {
             writeFile.write(jsonObject.toJSONString());
             writeFile.close();
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
             return;
         }
     }

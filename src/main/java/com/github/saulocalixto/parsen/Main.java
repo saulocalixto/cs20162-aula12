@@ -60,7 +60,7 @@ public class Main {
             Tojson.writer("./qp.json");
             System.out.println("Arquivo json criado no diretório corrente");
         } else {
-            erro("Arquivo não encontrado.\n");
+            erro("Argumento Inválido.\n");
         }
         System.exit(0);
     }

@@ -5,13 +5,11 @@
  */
 package com.github.saulocalixto.parsen;
 
-import com.google.common.collect.Lists;
 import java.io.IOException;
-import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -37,6 +35,14 @@ public class ToHtmlTest {
     public void apenasParaAgradarJacocoTool100PorCentoCobertura() {
         ToHtml html = new ToHtml();
         Assert.assertNotNull(html);
+    }
+
+    @Test(expected = IOException.class)
+    public void ErroLeitura() throws IOException {
+        List teste = new ArrayList<>();
+        teste.add("besteira");
+        ToHtml html = new ToHtml();
+        html.write("c:/saulo.txt", teste);
     }
 
 }
